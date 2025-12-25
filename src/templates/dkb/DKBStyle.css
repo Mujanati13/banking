@@ -1,0 +1,758 @@
+/* DKB Banking Style - Exact Match to banking.dkb.de */
+
+/* DKB Color Variables - Exact from screenshots */
+:root {
+  /* Primary DKB Colors - Dark Theme */
+  --dkb-primary: #148DEA;
+  --dkb-primary-hover: #134e8a;
+  --dkb-primary-pressed: #1e99f7;
+  --dkb-background: #09141c; /* Dark blue background from screenshots */
+  --dkb-surface: #131f29; /* Dark card background */
+  --dkb-surface-light: #122534; /* Slightly lighter for inputs */
+  
+  /* Text Colors - Dark Theme */
+  --dkb-text-primary: #edf4f7; /* Light text on dark background */
+  --dkb-text-subdued: rgba(204, 233, 255, 0.62);
+  --dkb-text-on-actions: #ffffff;
+  --dkb-text-interact: #148DEA;
+  
+  /* Border & Focus */
+  --dkb-border-cards: rgba(181, 223, 255, 0.2);
+  --dkb-border-interact: rgba(20, 141, 234, 0.24);
+  --dkb-focused: rgba(30, 153, 247, 0.74);
+  
+  /* Input specific colors */
+  --dkb-input-bg: #122534; /* Dark input background */
+  --dkb-input-border: rgba(181, 223, 255, 0.2);
+  --dkb-input-text: #849eb1;
+  --dkb-input-placeholder: rgba(132, 158, 177, 0.6);
+  
+  /* Typography */
+  --dkb-font-family: 'DKBEuclid', Arial, sans-serif;
+  
+  /* Spacing - exact DKB spacing */
+  --space-0: 0px;
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  
+  /* Border Radius - exact DKB radius */
+  --border-radius-3: 6px;
+  --border-radius-6: 12px;
+  --border-radius-4: 8px;
+}
+
+/* DKB Font Faces */
+@font-face {
+  font-family: 'DKBEuclid';
+  src: url('/templates/dkb/fonts/DKBEuclid-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: 'DKBEuclid';
+  src: url('/templates/dkb/fonts/DKBEuclid-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: 'DKBEuclid';
+  src: url('/templates/dkb/fonts/DKBEuclid-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: 'DKBEuclid';
+  src: url('/templates/dkb/fonts/DKBEuclid-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: fallback;
+}
+
+/* Global Styles */
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  background-color: var(--dkb-background);
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--dkb-font-family);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  letter-spacing: 0.0125rem;
+  line-height: 1.625rem;
+  margin: 0;
+  padding: 0;
+  background-color: var(--dkb-background);
+  color: var(--dkb-text-primary);
+  min-height: 100vh;
+}
+
+/* DKB Main Layout - Match screenshots exactly */
+.dkb-main-layout {
+  min-height: 100vh;
+  background-color: var(--dkb-background);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* DKB Login Page Layout - Exact match to banking.dkb.de */
+.dkb-login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 64px 16px;
+  min-height: calc(100vh - 160px); /* Account for header + footer */
+}
+
+/* DKB Login Card - Exact styling from screenshots */
+.dkb-login-card {
+  background-color: var(--dkb-surface);
+  border: 1px solid var(--dkb-border-cards);
+  border-radius: var(--border-radius-6);
+
+  width: 100%;
+  max-width: 512px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 330px;
+}
+
+@media (min-width: 528px) {
+  .dkb-login-card {
+    padding: 32px;
+  }
+}
+
+/* DKB Typography - Exact from screenshots */
+.dkb-display-large {
+  font-family: var(--dkb-font-family);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0rem;
+  line-height: 2.625rem;
+  color: var(--dkb-text-primary);
+  text-align: center;
+  margin: 0 0 var(--space-6) 0;
+}
+
+/* DKB Input System - Exact match to screenshots */
+.dkb-input-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: var(--space-4);
+}
+
+.dkb-input {
+  width: 100%;
+  height: 56px;
+  background-color: var(--dkb-input-bg);
+  border: 1px solid var(--dkb-input-border);
+  border-radius: var(--border-radius-3);
+  padding: 16px 16px 8px 16px;
+  font-family: var(--dkb-font-family);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  letter-spacing: 0rem;
+  line-height: 1.375rem;
+  color: var(--dkb-input-text);
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.dkb-input:focus {
+  border-color: var(--dkb-focused);
+  border-width: 2px;
+}
+
+.dkb-input::placeholder {
+  color: transparent;
+}
+
+/* DKB Input Labels - Floating style from screenshots */
+.dkb-input-label {
+  position: absolute;
+  left: 16px;
+  top: 8px;
+  font-family: var(--dkb-font-family);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.025rem;
+  line-height: 0.875rem;
+  color: var(--dkb-text-subdued);
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.dkb-input:not(:focus):placeholder-shown + .dkb-input-label {
+  top: 16px;
+  font-size: 1.0625rem;
+  line-height: 1.375rem;
+}
+
+/* DKB Button System - Exact from screenshots */
+.dkb-button {
+  align-items: center;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: var(--border-radius-3);
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  font-family: var(--dkb-font-family);
+  cursor: pointer;
+  outline: none;
+}
+
+.dkb-button:focus-visible {
+  outline: none;
+}
+
+.dkb-button:focus-visible::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--dkb-focused);
+  border-radius: calc(var(--border-radius-3) + 2px);
+  margin: -3px;
+}
+
+.dkb-button-primary {
+  background-color: var(--dkb-primary);
+  color: var(--dkb-text-on-actions);
+  height: 56px;
+  padding: 16px 20px;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0rem;
+  line-height: 1.5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dkb-button-primary:hover {
+  background-color: var(--dkb-primary-hover);
+}
+
+.dkb-button-primary:active {
+  background-color: var(--dkb-primary-pressed);
+}
+
+.dkb-button-primary:disabled {
+  background-color: rgba(223, 228, 232, 0.18);
+  color: rgba(232, 238, 242, 0.28);
+}
+
+.dkb-button-tertiary {
+  background-color: transparent;
+  color: var(--dkb-text-interact);
+  height: 32px;
+  padding: 5px 6px;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: 0rem;
+  line-height: 1.375rem;
+}
+
+.dkb-button-tertiary:hover {
+  background-color: rgba(20, 141, 234, 0.12);
+}
+
+/* DKB Forgot Password Section - Exact from screenshots */
+.dkb-forgot-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-top: 12px;
+}
+
+.dkb-forgot-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+@media (min-width: 528px) {
+  .dkb-forgot-container {
+    flex-direction: row;
+  }
+}
+
+.dkb-forgot-text {
+  font-family: var(--dkb-font-family);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  color: var(--dkb-text-subdued);
+  margin: 0;
+}
+
+/* DKB Header - Exact from screenshots */
+.dkb-header {
+  background-color: #09141c;
+  width: 100%;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+@media (min-width: 528px) {
+  .dkb-header {
+    padding: 0 32px;
+  }
+}
+
+.dkb-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 80px;
+}
+
+.dkb-header-logo-container {
+  margin-right: 20px;
+}
+
+.dkb-header-logo-container svg {
+  width: 85px;
+  height: 48px;
+}
+
+/* DKB Footer - Exact from screenshots */
+.dkb-footer {
+  background-color: #132d40;
+  color: var(--dkb-text-on-actions);
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 16px 16px 0px;
+}
+
+@media (min-width: 528px) {
+  .dkb-footer {
+    padding: 0 32px;
+  }
+}
+
+.dkb-footer-content {
+  display: flex;
+  flex-grow: 1;
+  flex-flow: wrap;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dkb-footer-content ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dkb-footer-section {
+  padding-top: 9px;
+  padding-bottom: 13px;
+}
+
+@media (max-width: 375px) {
+  .dkb-footer-section {
+    padding-top: 0px;
+    padding-bottom: 18px;
+  }
+}
+
+.dkb-footer-section:nth-child(2),
+.dkb-footer-section:not(:last-child) {
+  padding-right: 24px;
+}
+
+.dkb-footer-link {
+  color: var(--dkb-text-on-actions);
+  text-decoration: underline;
+  text-decoration-color: #61caca;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0rem;
+  line-height: 1.125rem;
+  font-family: var(--dkb-font-family);
+  display: flex;
+  cursor: pointer;
+  position: relative;
+  outline: 0;
+  text-align: left;
+  padding: var(--space-2) var(--space-1);
+  border-radius: var(--border-radius-3);
+  transition: all 0.2s ease;
+}
+
+.dkb-footer-link:hover,
+.dkb-footer-link:focus {
+  text-shadow: 0px 0px 0.01px;
+}
+
+.dkb-footer-link:focus::after {
+  content: "";
+  border-radius: 6px;
+  position: absolute;
+  inset: -6px -6px -8px;
+  border: 3px solid var(--dkb-focused);
+}
+
+/* Password visibility button styling */
+.dkb-password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--dkb-text-subdued);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: var(--border-radius-3);
+  transition: background-color 0.2s ease;
+}
+
+.dkb-password-toggle:hover {
+  background-color: rgba(20, 141, 234, 0.12);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dkb-login-container {
+    padding: 32px 16px;
+  }
+  
+  .dkb-login-card {
+    padding: 24px;
+  }
+  
+  .dkb-header {
+    height: 64px;
+  }
+  
+  .dkb-header-content {
+    height: 64px;
+  }
+  
+  .dkb-logo {
+    height: 40px;
+    width: auto;
+  }
+}
+
+/* Utility classes for exact DKB spacing */
+.mb-0 { margin-bottom: 0; }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-6 { margin-bottom: var(--space-6); }
+.mb-8 { margin-bottom: var(--space-8); }
+
+.mt-0 { margin-top: 0; }
+.mt-2 { margin-top: var(--space-2); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-6 { margin-top: var(--space-6); }
+
+  .w-100 { width: 100%; }
+  .text-center { text-align: center; }
+
+/* DKB Form Styles - Exact match to screenshot */
+.dkb-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 160px);
+  padding: 32px 16px;
+}
+
+/* DKB Card - Generic card component */
+.dkb-card {
+  background-color: var(--dkb-surface);
+  border: 1px solid var(--dkb-border-cards);
+  border-radius: var(--border-radius-6);
+  padding: 32px;
+  width: 100%;
+  max-width: 512px;
+}
+
+/* DKB Title Large */
+.dkb-title-large {
+  font-family: var(--dkb-font-family);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0rem;
+  line-height: 2rem;
+  color: var(--dkb-text-primary);
+  margin: 0;
+}
+
+.dkb-form-card {
+  background-color: #131f29;
+  border-radius: 16px;
+  padding: 32px;
+  width: 100%;
+  max-width: 480px;
+  border: 1px solid rgba(181, 223, 255, 0.2);
+
+}
+
+.dkb-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.dkb-close-button {
+  background: none;
+  border: none;
+  color: rgba(204, 233, 255, 0.62);
+  font-size: 20px;
+  font-family: 'DKBEuclid', Arial, sans-serif;
+  cursor: pointer;
+  padding: 8px;
+  transition: color 0.2s ease;
+}
+
+.dkb-close-button:hover {
+  color: #edf4f7;
+}
+
+.dkb-form-title {
+  font-family: 'DKBEuclid', Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #edf4f7;
+  margin: 0;
+  line-height: 32px;
+  text-align: center;
+  flex: 1;
+}
+
+.dkb-form-description {
+  font-family: 'DKBEuclid', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(204, 233, 255, 0.62);
+  margin: 0 0 32px 0;
+  line-height: 24px;
+  text-align: center;
+}
+
+.dkb-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dkb-input-container {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.dkb-input {
+  width: 100%;
+  height: 56px;
+  background-color: #122534;
+  border: 1px solid rgba(181, 223, 255, 0.2);
+  border-radius: 8px;
+  padding: 24px 16px 8px 16px;
+  font-family: 'DKBEuclid', Arial, sans-serif;
+  font-size: 16px;
+  color: #ffffff;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.dkb-input::placeholder {
+  color: transparent;
+  font-family: 'DKBEuclid', Arial, sans-serif;
+}
+
+.dkb-input:focus {
+  border-color: #148DEA;
+  box-shadow: 0 0 0 3px rgba(20, 141, 234, 0.24);
+}
+
+.dkb-input-label {
+  position: absolute;
+  top: 28px;
+  left: 16px;
+  padding: 0;
+  font-family: 'DKBEuclid', Arial, sans-serif;
+  font-size: 16px;
+  color: #849eb1;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  background: transparent;
+  line-height: 1;
+}
+
+/* When input has value or is focused, move label to top */
+.dkb-input:focus + .dkb-input-label,
+.dkb-input:not(:placeholder-shown) + .dkb-input-label {
+  top: 8px;
+  font-size: 12px;
+  color: rgba(132, 158, 177, 0.8);
+}
+
+.dkb-input-error {
+  color: #ff6b6b;
+  font-size: 14px;
+  font-family: 'DKBEuclid', Arial, sans-serif;
+  margin-top: 8px;
+}
+
+.dkb-submit-button {
+  width: 100%;
+  height: 56px;
+  background-color: #148DEA;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'DKBEuclid', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 8px;
+}
+
+.dkb-submit-button:hover:not(:disabled) {
+  background-color: #134e8a;
+}
+
+.dkb-submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.dkb-upload-button {
+  width: 100%;
+  height: 48px;
+  background-color: transparent;
+  border: 2px solid #148DEA;
+  border-radius: 8px;
+  color: #148DEA;
+  font-family: 'DKBEuclid', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.dkb-upload-button:hover {
+  background-color: rgba(20, 141, 234, 0.1);
+}
+
+.dkb-drag-area {
+  border: 2px dashed rgba(181, 223, 255, 0.3);
+  border-radius: 8px;
+  padding: 32px 16px;
+  text-align: center;
+  margin-bottom: 24px;
+  transition: all 0.2s ease;
+}
+
+.dkb-file-preview {
+  background-color: #122534;
+  border: 1px solid rgba(181, 223, 255, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.dkb-error-message {
+  background-color: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.dkb-security-notice {
+  background-color: rgba(20, 141, 234, 0.1);
+  border: 1px solid rgba(20, 141, 234, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+/* Form Mobile Responsive */
+@media (max-width: 768px) {
+  .dkb-form-container {
+    padding: 16px;
+    min-height: calc(100vh - 140px);
+  }
+  
+  .dkb-form-card {
+    padding: 24px 20px;
+    border-radius: 12px;
+  }
+  
+  .dkb-form-title {
+    font-size: 20px;
+    line-height: 28px;
+  }
+  
+  .dkb-form-description {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+/* Loading animation for buttons */
+@keyframes dkb-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+server/node_modules/
+mailer-service/node_modules/
+
+# Build outputs
+dist/
+build/
+server/dist/
+mailer-service/dist/
+
+# Environment files (NEVER commit these)
+.env
+.env.local
+.env.production
+.env.development
+server/.env
+mailer-service/.env
+
+# Database
+*.sqlite
+*.sqlite3
+data/
+
+# Uploads
+uploads/
+server/uploads/
+!uploads/.gitkeep
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage/
