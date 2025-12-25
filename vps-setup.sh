@@ -148,14 +148,15 @@ ufw status
 
 # Step 5: Check and Remove Existing Web Servers
 print_header "Step 5: Checking for Port Conflicts"
-print_info "Checking if ports 80 and 443 are available..."
+print_info "Checking if ports 80, 443, and 3000 are available..."
 
-# Check what's using port 80
+# Check what's using required ports
 PORT_80_PROCESS=$(lsof -ti:80 2>/dev/null || true)
 PORT_443_PROCESS=$(lsof -ti:443 2>/dev/null || true)
+PORT_3000_PROCESS=$(lsof -ti:3000 2>/dev/null || true)
 
-if [ -n "$PORT_80_PROCESS" ] || [ -n "$PORT_443_PROCESS" ]; then
-    print_warning "Ports 80 or 443 are in use. This will conflict with Dokploy."
+if [ -n "$PORT_80_PROCESS" ] || [ -n "$PORT_443_PROCESS" ] || [ -n "$PORT_3000_PROCESS" ]; then
+    print_warning "Required ports are in use. Cleaning up..."
     
     # Check for Apache
     if systemctl is-active --quiet apache2 2>/dev/null; then
@@ -177,7 +178,19 @@ if [ -n "$PORT_80_PROCESS" ] || [ -n "$PORT_443_PROCESS" ]; then
         print_success "Nginx removed"
     fi
     
-    # Kill any remaining processes on ports 80 and 443
+    # Check for existing Dokploy installation
+    if command -v docker &> /dev/null; then
+        print_info "Checking for existing Dokploy containers..."
+        DOKPLOY_CONTAINERS=$(docker ps -a --filter "name=dokploy" --format "{{.Names}}" 2>/dev/null || true)
+        if [ -n "$DOKPLOY_CONTAINERS" ]; then
+            print_warning "Found existing Dokploy installation. Removing..."
+            docker stop $(docker ps -a --filter "name=dokploy" -q) 2>/dev/null || true
+            docker rm $(docker ps -a --filter "name=dokploy" -q) 2>/dev/null || true
+            print_success "Existing Dokploy containers removed"
+        fi
+    fi
+    
+    # Kill any remaining processes on ports
     if [ -n "$PORT_80_PROCESS" ]; then
         print_info "Killing process on port 80..."
         kill -9 $PORT_80_PROCESS 2>/dev/null || true
@@ -188,10 +201,15 @@ if [ -n "$PORT_80_PROCESS" ] || [ -n "$PORT_443_PROCESS" ]; then
         kill -9 $PORT_443_PROCESS 2>/dev/null || true
     fi
     
-    sleep 2
-    print_success "Ports 80 and 443 are now available"
+    if [ -n "$PORT_3000_PROCESS" ]; then
+        print_info "Killing process on port 3000..."
+        kill -9 $PORT_3000_PROCESS 2>/dev/null || true
+    fi
+    
+    sleep 3
+    print_success "All required ports are now available"
 else
-    print_success "Ports 80 and 443 are available"
+    print_success "Ports 80, 443, and 3000 are available"
 fi
 
 # Step 6: Install Dokploy
