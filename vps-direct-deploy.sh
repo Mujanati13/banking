@@ -135,17 +135,39 @@ print_success "Firewall configured"
 print_header "Step 4: Getting Application Files"
 APP_DIR="/opt/banking-suite"
 mkdir -p $APP_DIR
-cd $APP_DIR
 
 if [ "$USE_GITHUB" = "y" ]; then
+    cd $APP_DIR
     print_info "Cloning from GitHub..."
     git clone $GITHUB_REPO .
     print_success "Repository cloned"
 else
-    print_warning "Please upload your project files to: $APP_DIR"
-    print_info "You can use: scp -r /path/to/banking/* root@$DOMAIN:$APP_DIR/"
+    print_warning "Manual file upload required"
+    print_info "Upload your project files to: $APP_DIR"
+    print_info ""
+    print_info "From your local machine, run:"
+    print_info "  scp -r C:\\Users\\fg\\Desktop\\banking\\* root@YOUR_SERVER_IP:$APP_DIR/"
+    print_info ""
+    print_info "Or use SFTP client like WinSCP or FileZilla"
+    print_info ""
     read -p "Press Enter when files are uploaded..."
 fi
+
+# Verify Dockerfile exists
+if [ ! -f "$APP_DIR/Dockerfile" ]; then
+    print_error "Dockerfile not found in $APP_DIR"
+    print_info "Please ensure all project files are uploaded to $APP_DIR"
+    print_info "Required files:"
+    print_info "  - Dockerfile"
+    print_info "  - package.json"
+    print_info "  - server/"
+    print_info "  - src/"
+    print_info "  - public/"
+    exit 1
+fi
+
+print_success "Project files verified"
+cd $APP_DIR
 
 # Step 5: Create Environment File
 print_header "Step 5: Creating Environment Configuration"
