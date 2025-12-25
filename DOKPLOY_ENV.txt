@@ -1,0 +1,115 @@
+# ===================================================
+# DOKPLOY ENVIRONMENT VARIABLES
+# Banking Suite - Production Deployment
+# ===================================================
+#
+# INSTRUCTIONS:
+# 1. Copy all variables below
+# 2. In Dokploy Dashboard → Your App → Environment Tab
+# 3. Paste these variables
+# 4. CUSTOMIZE the values marked with ⚠️ CHANGE THIS
+# 5. Click Save
+#
+# ===================================================
+
+# ===== ADMIN CREDENTIALS =====
+# ⚠️ CHANGE THIS - Your admin login credentials
+ADMIN_EMAIL=admin@magicsuite.pro
+ADMIN_PASSWORD=qz^X5rp%KjH2SRlo
+ADMIN_USERNAME=admin
+
+# ===== DOMAINS & URLS =====
+# ⚠️ CHANGE THIS - Replace with your actual domain everywhere
+CLIENT_URL=https://bankingsuite.magicsuite.pro
+CORS_ORIGIN=https://bankingsuite.magicsuite.pro
+SERVER_URL=https://bankingsuite.magicsuite.pro:3001
+TEMPLATE_BASE_URL=https://bankingsuite.magicsuite.pro
+
+# ===== EMAIL CONFIGURATION =====
+# ⚠️ CHANGE THIS - Update to match your domain
+DEFAULT_FROM_EMAIL=no-reply@magicsuite.pro
+DEFAULT_FROM_NAME=Multi-Banking Panel
+EMAIL_FROM=no-reply@magicsuite.pro
+
+# ===== SECURITY KEYS =====
+# ⚠️ CHANGE THIS - Generate your own keys using:
+# node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"  // JWT & SESSION
+# node -e "console.log(require('crypto').randomBytes(16).toString('hex'))"  // ENCRYPTION_KEY (must be exactly 32 hex chars)
+# node -e "console.log(require('crypto').randomBytes(8).toString('hex'))"   // ENCRYPTION_IV (must be exactly 16 hex chars)
+#
+# Or run: npm run setup
+#
+JWT_SECRET=554904df7d390d8d0ad2271b053ce66c53a05a11c7190dfbfae3c91fe08eb6c1f47e8f6aab29e459e4ee0549276dee63217416d66a39746899d9ec7c787a10c4
+SESSION_SECRET=bd085aa9ce1900699150ff23e490614d3c98e4fd1213e304da544bd14d0a04d838012cc1bc4e742c30053fabd104efb9fc8b65b172d94835a97c3b2009f604c0
+ENCRYPTION_KEY=428944a9164c2838be9d5f9c0a124537
+ENCRYPTION_IV=4f37f6e7a72432ad
+
+# ===== BACKEND INTERNAL URL =====
+# ✅ KEEP AS-IS - Internal Docker network URL
+BACKEND_URL=http://backend:3001
+
+# ===== DATABASE =====
+# ✅ KEEP AS-IS - Path inside container
+DB_PATH=/app/data/database.sqlite
+
+# ===== SERVER CONFIGURATION =====
+# ✅ KEEP AS-IS - Standard production settings
+NODE_ENV=production
+PORT=3001
+LOG_LEVEL=info
+TRUST_PROXY=true
+
+# ===== FILE UPLOADS =====
+# ✅ KEEP AS-IS
+UPLOAD_DIR=/app/uploads
+MAX_FILE_SIZE=10485760
+
+# ===== RATE LIMITING =====
+# ✅ KEEP AS-IS - 100 requests per 15 minutes
+RATE_LIMIT_MAX_REQUESTS=100
+RATE_LIMIT_WINDOW_MS=900000
+
+# ===== SESSION MANAGEMENT =====
+# ✅ KEEP AS-IS
+SESSION_EXPIRE_HOURS=24
+
+# ===================================================
+# END OF REQUIRED VARIABLES
+# ===================================================
+
+# ===== OPTIONAL: SMTP EMAIL CONFIGURATION =====
+# Uncomment and configure if you want to send emails via SMTP
+# (Alternative to using Resend API)
+#
+# EMAIL_HOST=smtp.gmail.com
+# EMAIL_PORT=587
+# EMAIL_SECURE=false
+# EMAIL_USER=your-email@gmail.com
+# EMAIL_PASS=your-app-password
+
+# ===== OPTIONAL: RESEND API =====
+# Uncomment if using Resend for email sending
+#
+# RESEND_API_KEY=re_your_api_key_here
+
+# ===== OPTIONAL: ADVANCED SECURITY =====
+# Uncomment to enable additional features
+#
+# ENABLE_ANTIBOT=true
+# ANTIBOT_HEADER_THRESHOLD=5
+# ENABLE_GEO_FILTER=false
+# ALLOWED_COUNTRIES=US,GB,CA,DE
+# ENABLE_REFERRER_CHECK=false
+# TRUSTED_REFERRERS=https://google.com,https://facebook.com
+
+# ===================================================
+# VALIDATION CHECKLIST
+# ===================================================
+# Before deploying, verify:
+# ✅ All domains match (CLIENT_URL, CORS_ORIGIN, SERVER_URL, TEMPLATE_BASE_URL)
+# ✅ ENCRYPTION_KEY is exactly 32 hex characters (64 chars if using hex encoding)
+# ✅ ENCRYPTION_IV is exactly 16 hex characters (32 chars if using hex encoding)
+# ✅ ADMIN_PASSWORD is strong and saved securely
+# ✅ JWT_SECRET and SESSION_SECRET are unique and long (128+ chars)
+# ✅ EMAIL addresses match your domain
+# ===================================================
