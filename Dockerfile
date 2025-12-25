@@ -92,9 +92,6 @@ COPY --from=builder --chown=banking:nodejs /app/server/dist /app/backend
 COPY --from=deps --chown=banking:nodejs /app/server/node_modules /app/backend/node_modules
 COPY --from=builder --chown=banking:nodejs /app/server/package.json /app/backend/
 
-# Copy data directory if exists (might not exist in fresh builds)
-COPY --from=builder --chown=banking:nodejs /app/server/src/data /app/backend/data
-
 WORKDIR /app/backend
 
 # Copy Nginx configuration
