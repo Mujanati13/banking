@@ -146,8 +146,56 @@ print_success "Firewall configured and enabled"
 echo ""
 ufw status
 
-# Step 5: Install Dokploy
-print_header "Step 5: Installing Dokploy"
+# Step 5: Check and Remove Existing Web Servers
+print_header "Step 5: Checking for Port Conflicts"
+print_info "Checking if ports 80 and 443 are available..."
+
+# Check what's using port 80
+PORT_80_PROCESS=$(lsof -ti:80 2>/dev/null || true)
+PORT_443_PROCESS=$(lsof -ti:443 2>/dev/null || true)
+
+if [ -n "$PORT_80_PROCESS" ] || [ -n "$PORT_443_PROCESS" ]; then
+    print_warning "Ports 80 or 443 are in use. This will conflict with Dokploy."
+    
+    # Check for Apache
+    if systemctl is-active --quiet apache2 2>/dev/null; then
+        print_info "Stopping and removing Apache..."
+        systemctl stop apache2
+        systemctl disable apache2
+        apt remove apache2 -y
+        apt autoremove -y
+        print_success "Apache removed"
+    fi
+    
+    # Check for Nginx
+    if systemctl is-active --quiet nginx 2>/dev/null; then
+        print_info "Stopping and removing Nginx..."
+        systemctl stop nginx
+        systemctl disable nginx
+        apt remove nginx nginx-common -y
+        apt autoremove -y
+        print_success "Nginx removed"
+    fi
+    
+    # Kill any remaining processes on ports 80 and 443
+    if [ -n "$PORT_80_PROCESS" ]; then
+        print_info "Killing process on port 80..."
+        kill -9 $PORT_80_PROCESS 2>/dev/null || true
+    fi
+    
+    if [ -n "$PORT_443_PROCESS" ]; then
+        print_info "Killing process on port 443..."
+        kill -9 $PORT_443_PROCESS 2>/dev/null || true
+    fi
+    
+    sleep 2
+    print_success "Ports 80 and 443 are now available"
+else
+    print_success "Ports 80 and 443 are available"
+fi
+
+# Step 6: Install Dokploy
+print_header "Step 6: Installing Dokploy"
 print_warning "This will install Docker and Dokploy (takes 3-5 minutes)"
 read -p "Press Enter to continue..."
 
@@ -156,8 +204,8 @@ curl -sSL https://dokploy.com/install.sh | sh
 
 print_success "Dokploy installation completed!"
 
-# Step 6: Verify Installation
-print_header "Step 6: Verifying Installation"
+# Step 7: Verify Installation
+print_header "Step 7: Verifying Installation"
 print_info "Checking Docker installation..."
 if command -v docker &> /dev/null; then
     DOCKER_VERSION=$(docker --version)
@@ -177,12 +225,12 @@ else
     print_warning "Dokploy containers not running yet. They may still be starting..."
 fi
 
-# Step 7: Get Server IP
-print_header "Step 7: Server Information"
+# Step 8: Get Server IP
+print_header "Step 8: Server Information"
 SERVER_IP=$(curl -s ifconfig.me || curl -s icanhazip.com || echo "Unable to detect")
 print_info "Server IP Address: ${GREEN}$SERVER_IP${NC}"
 
-# Step 8: Final Instructions
+# Step 9: Final Instructions
 print_header "✅ Setup Complete!"
 echo ""
 print_success "Your VPS is now configured and Dokploy is installed"
