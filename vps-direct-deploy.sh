@@ -59,12 +59,19 @@ echo ""
 
 # Get configuration
 print_header "Configuration"
-read -p "Enter your domain (e.g., bankingsuite.yourdomain.com): " DOMAIN
+read -p "Enter your domain [bankingsuite.magicsuite.pro]: " DOMAIN
+DOMAIN=${DOMAIN:-bankingsuite.magicsuite.pro}
+
 read -p "Enter admin username [admin]: " ADMIN_USERNAME
 ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
-read -sp "Enter admin password: " ADMIN_PASSWORD
+
+read -sp "Enter admin password [qz^X5rp%KjH2SRlo]: " ADMIN_PASSWORD
 echo ""
-read -p "Enter admin email: " ADMIN_EMAIL
+ADMIN_PASSWORD=${ADMIN_PASSWORD:-'qz^X5rp%KjH2SRlo'}
+
+read -p "Enter admin email [admin@magicsuite.pro]: " ADMIN_EMAIL
+ADMIN_EMAIL=${ADMIN_EMAIL:-admin@magicsuite.pro}
+
 read -p "Clone from GitHub? (y/n) [n]: " USE_GITHUB
 USE_GITHUB=${USE_GITHUB:-n}
 
@@ -72,13 +79,25 @@ if [ "$USE_GITHUB" = "y" ]; then
     read -p "Enter GitHub repo URL (https://github.com/user/repo.git): " GITHUB_REPO
 fi
 
-# Generate security keys
-print_header "Generating Security Keys"
-JWT_SECRET=$(openssl rand -hex 64)
-SESSION_SECRET=$(openssl rand -hex 64)
-ENCRYPTION_KEY=$(openssl rand -hex 16)
-ENCRYPTION_IV=$(openssl rand -hex 8)
-print_success "Security keys generated"
+# Security keys (pre-configured or generate new)
+print_header "Security Keys Configuration"
+read -p "Use pre-configured keys? (y/n) [y]: " USE_PRECONFIG_KEYS
+USE_PRECONFIG_KEYS=${USE_PRECONFIG_KEYS:-y}
+
+if [ "$USE_PRECONFIG_KEYS" = "y" ]; then
+    JWT_SECRET="554904df7d390d8d0ad2271b053ce66c53a05a11c7190dfbfae3c91fe08eb6c1f47e8f6aab29e459e4ee0549276dee63217416d66a39746899d9ec7c787a10c4"
+    SESSION_SECRET="bd085aa9ce1900699150ff23e490614d3c98e4fd1213e304da544bd14d0a04d838012cc1bc4e742c30053fabd104efb9fc8b65b172d94835a97c3b2009f604c0"
+    ENCRYPTION_KEY="428944a9164c2838be9d5f9c0a124537"
+    ENCRYPTION_IV="4f37f6e7a72432ad"
+    print_success "Using pre-configured security keys"
+else
+    print_info "Generating new security keys..."
+    JWT_SECRET=$(openssl rand -hex 64)
+    SESSION_SECRET=$(openssl rand -hex 64)
+    ENCRYPTION_KEY=$(openssl rand -hex 16)
+    ENCRYPTION_IV=$(openssl rand -hex 8)
+    print_success "New security keys generated"
+fi
 
 # Step 1: Update System
 print_header "Step 1: Updating System"
@@ -141,7 +160,7 @@ CLIENT_URL=https://$DOMAIN
 CORS_ORIGIN=https://$DOMAIN
 SERVER_URL=https://$DOMAIN:3001
 TEMPLATE_BASE_URL=https://$DOMAIN
-BACKEND_URL=http://localhost:3001
+BACKEND_URL=http://backend:3001
 
 # Database
 DB_PATH=/app/data/database.sqlite
@@ -159,9 +178,9 @@ LOG_LEVEL=info
 TRUST_PROXY=true
 
 # Email
-DEFAULT_FROM_EMAIL=no-reply@$DOMAIN
+DEFAULT_FROM_EMAIL=no-reply@${DOMAIN#*.}
 DEFAULT_FROM_NAME=Multi-Banking Panel
-EMAIL_FROM=no-reply@$DOMAIN
+EMAIL_FROM=no-reply@${DOMAIN#*.}
 
 # File Uploads
 UPLOAD_DIR=/app/uploads
