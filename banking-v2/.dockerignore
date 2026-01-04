@@ -126,7 +126,7 @@ backups/
 !src/**/*.ico
 !src/**/*.webp
 
-# Font files (except template fonts)
+# Font files (except template fonts and public fonts)
 *.woff
 *.woff2
 *.ttf
@@ -139,3 +139,11 @@ backups/
 !public/templates/**/*.woff2
 !public/templates/**/*.ttf
 !public/templates/**/*.eot
+!public/fonts/**/*.woff
+!public/fonts/**/*.woff2
+!public/fonts/**/*.ttf
+!public/fonts/**/*.eot
+!public/fonts/*.woff
+!public/fonts/*.woff2
+!public/fonts/*.ttf
+!public/fonts/*.eot
