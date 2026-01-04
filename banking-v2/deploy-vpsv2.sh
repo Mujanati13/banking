@@ -47,7 +47,7 @@ DOMAIN="bankingsuite.codingcartel.li"
 ADMIN_USERNAME="admin"
 ADMIN_PASSWORD='qz^X5rp%KjH2SRlo'
 ADMIN_EMAIL="admin@codingcartel.li"
-APP_DIR="/root/banking-v2"
+APP_DIR="/root/banking/banking-v2"
 CONTAINER_NAME="banking-suite-v2"
 OLD_CONTAINER_NAME="banking-suite"
 
