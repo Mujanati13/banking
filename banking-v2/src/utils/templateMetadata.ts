@@ -272,11 +272,11 @@ export const TEMPLATE_METADATA: Record<string, TemplateMetadata> = {
   admin: {
     name: 'admin',
     displayName: 'BankingSuite Admin',
-    title: 'BankingSuite v1.0 - Admin Dashboard',
+    title: 'BankingSuite v1.2 - Admin Dashboard',
     favicon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23ef4444;stop-opacity:1" /><stop offset="100%" style="stop-color:%23dc2626;stop-opacity:1" /></linearGradient></defs><rect width="32" height="32" fill="url(%23grad)"/><path d="M16 8l-3 3h2v6h2v-6h2l-3-3zm-6 12h12v2H10v-2z" fill="white"/></svg>',
     appleIcon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23ef4444;stop-opacity:1" /><stop offset="100%" style="stop-color:%23dc2626;stop-opacity:1" /></linearGradient></defs><rect width="32" height="32" fill="url(%23grad)"/><path d="M16 8l-3 3h2v6h2v-6h2l-3-3zm-6 12h12v2H10v-2z" fill="white"/></svg>',
     themeColor: '#ef4444',
-    description: 'BankingSuite v1.0 - Professional Banking Security Research Platform',
+    description: 'BankingSuite v1.2 - Professional Banking Security Research Platform',
     keywords: 'banking, security, research, phishing, admin, dashboard, suite',
     fonts: [
       '/fonts/gotham/Gotham-Book.woff2',

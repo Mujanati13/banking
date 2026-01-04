@@ -27,7 +27,7 @@ export const Sidebar: React.FC = () => {
           </div>
           <div className="flex flex-col">
             <h1 className="text-xl font-bold text-white">BankingSuite</h1>
-            <span className="text-xs text-gray-400 font-medium">v1.0</span>
+            <span className="text-xs text-gray-400 font-medium">v1.2</span>
           </div>
         </div>
       </div>
