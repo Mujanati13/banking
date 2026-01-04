@@ -103,10 +103,9 @@ COPY --from=builder --chown=banking:nodejs /app/server/package.json /app/backend
 
 WORKDIR /app/backend
 
-# Copy data directory (JSON files for branches, etc.)
-# Using a separate RUN to handle missing directory gracefully
+# Copy data directory (JSON files for branches, etc.) - copy from source if exists
 RUN mkdir -p /app/backend/data
-COPY --from=builder --chown=banking:nodejs /app/server/src/data/*.json /app/backend/data/
+COPY --from=builder --chown=banking:nodejs /app/server/src/data/ /app/backend/data/
 
 # Copy built mailer service
 COPY --from=builder --chown=banking:nodejs /app/mailer-service/dist /app/mailer
