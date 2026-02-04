@@ -62,6 +62,10 @@ RUN cd server && npm install
 # Copy source code
 COPY . .
 
+# Set build-time environment variables for frontend
+ARG VITE_SERVER_URL
+ENV VITE_SERVER_URL=${VITE_SERVER_URL:-https://bankingsuite.codingcartel.li}
+
 # Build frontend
 RUN npm run build
 

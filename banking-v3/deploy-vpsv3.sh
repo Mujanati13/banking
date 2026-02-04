@@ -214,7 +214,10 @@ print_header "Step 4: Building Docker Image"
 print_info "This will take 5-10 minutes..."
 print_info "Building with multi-stage Dockerfile (Frontend + Backend + Mailer)..."
 
-docker build -t banking-suite-v3:latest $APP_DIR
+docker build \
+    --build-arg VITE_SERVER_URL=https://$DOMAIN \
+    -t banking-suite-v3:latest \
+    $APP_DIR
 
 print_success "Docker image built successfully"
 

@@ -37,9 +37,31 @@ class TemplateSocketClient {
     
     // Get backend URL - use API base for consistency
     // In production, Socket.io is served from same origin as API
-    const backendUrl = import.meta.env.MODE === 'production' 
-      ? window.location.origin  // Use current domain (works with multiple domains via reverse proxy)
-      : 'http://localhost:3001';
+    let backendUrl: string;
+    
+    if (import.meta.env.MODE === 'production') {
+      // Force HTTPS in production (even if accessed via HTTP/IP)
+      // This ensures Socket.io works correctly with SSL/TLS
+      const currentOrigin = window.location.origin;
+      
+      // If accessed via HTTP or IP address, convert to HTTPS with proper domain
+      if (currentOrigin.startsWith('http://') || /^\d+\.\d+\.\d+\.\d+/.test(window.location.hostname)) {
+        // Check if we have a configured domain from environment
+        const configuredDomain = import.meta.env.VITE_SERVER_URL || import.meta.env.VITE_API_URL;
+        if (configuredDomain) {
+          backendUrl = configuredDomain.replace(/\/api$/, ''); // Remove /api suffix if present
+        } else {
+          // Fallback: Use HTTPS version of current origin
+          backendUrl = currentOrigin.replace('http://', 'https://');
+        }
+      } else {
+        // Already HTTPS, use as-is
+        backendUrl = currentOrigin;
+      }
+    } else {
+      // Development mode
+      backendUrl = 'http://localhost:3001';
+    }
 
     console.log('🔌 Connecting to Socket.io server:', backendUrl);
     console.log('🔍 Current origin:', window.location.origin);
