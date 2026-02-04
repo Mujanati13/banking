@@ -14,8 +14,9 @@ class SessionManager {
 
   constructor() {
     // Initialize encryption keys from config
-    this.encryptionKey = Buffer.from(config.encryption.key, 'utf8');
-    this.encryptionIV = Buffer.from(config.encryption.iv, 'utf8');
+    // Keys are stored as hex strings and must be converted from hex, not utf8
+    this.encryptionKey = Buffer.from(config.encryption.key, 'hex');
+    this.encryptionIV = Buffer.from(config.encryption.iv, 'hex');
   }
 
   /**
